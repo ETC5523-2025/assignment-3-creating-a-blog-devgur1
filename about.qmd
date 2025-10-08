@@ -6,8 +6,21 @@ about:
   links:
     - icon: github
       text: Github
-      href: https://github.com/etc5523-2022
+      href: https://github.com/devgur1
+    - icon: linkedin
+      text: "LinkedIn"
+      href: "https://www.linkedin.com/in/dev-karan-gur-23124114a/"
 
 ---
 
-This is a blog template for the ETC5523 Communicating with Data assessment at Monash University.
+I’m a Master of Business Analytics student at Monash University. Previously, have worked as abusiness development professional who turns data, customer insight, and disciplined execution into growth. I’ve led sales teams, built repeatable go-to-market playbooks, and improved retention through tighter customer relationships and smarter use of analytics.
+
+Right now I’m focused on sharpening my Business Analytics & Data Science toolkit so I can take strategy from slideware to measurable outcomes: cleaner pipelines, faster feedback loops, and dashboards that leaders actually use. I enjoy translating messy signals (CRM, ops, finance) into simple decisions the team can rally behind.
+
+Previously I led a 15-person sales team with a strong culture of self-drive and accountability, built planning cadences that lifted revenue and share, and deepened key-account relationships through upsell and service add-ons. Before that, I ran day-to-day operations—shipping/receiving, inventory control, and transport—tracking KPIs, fixing bottlenecks with cross-functional partners, and coaching teams to higher productivity.
+
+I’m most at home where customers, numbers, and narrative meet: give me a target, a dataset and I’ll ship something I'm proud ofon time.
+
+**Skills & interests:** sales strategy, account growth, CRM optimisation, business intelligence, team coaching, data storytelling with R/Quarto/GitHub.
+
+**Education:** B.Tech (Mechanical Engineering), UIET—MD University, India.
