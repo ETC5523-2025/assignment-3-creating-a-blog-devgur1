@@ -23,8 +23,29 @@ Right now I’m focused on sharpening my Business Analytics & Data Science toolk
 
 Previously I led a 15-person sales team with a strong culture of self-drive and accountability, built planning cadences that lifted revenue and share, and deepened key-account relationships through upsell and service add-ons. Before that, I ran day-to-day operations—shipping/receiving, inventory control, and transport—tracking KPIs, fixing bottlenecks with cross-functional partners, and coaching teams to higher productivity.
 
-I’m most at home where customers, numbers, and narrative meet: give me a target, a dataset and I’ll ship something I'm proud ofon time.
+I’m most at home where customers, numbers, and narrative meet: give me a target, a dataset and I’ll ship something I'm proud of on time.
 
 Skills & interests: sales strategy, account growth, CRM optimisation, business intelligence, team coaching, data storytelling with R/Quarto/GitHub.
 
 Education: B.Tech (Mechanical Engineering), UIET—MD University, India.
+
+## Contact
+
+<div class="contact-card">
+  <a class="row-item" href="https://x.com/devkarangur7" target="_blank" rel="noopener">
+    <i class="bi bi-twitter-x"></i>
+    <span>@devkarangur7</span>
+    
+  </a>
+  
+  <a class="row-item" href="https://github.com/devgur1" target="_blank" rel="noopener">
+    <i class="bi bi-github"></i>
+    <span>devgur1</span>
+    
+  </a>
+  
+  <a class="row-item" href="mailto:dgur0010@student.monash.edu">
+    <i class="bi bi-envelope"></i>
+    <span>dgur0010@student.monash.edu</span>
+  </a>
+</div>

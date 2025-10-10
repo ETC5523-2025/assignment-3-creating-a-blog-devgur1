@@ -1,0 +1,103 @@
+---
+title: "How Much Did Climate Change Raise Australia’s 2019/20 Bushfire Risk?"
+author: "Dev Karan Gur"
+date: 2025-10-08
+categories: [Climate, Risk, Australia]
+image: profile.jpg
+execute:
+  warning: false
+  message: false
+format:
+  html:
+    toc: true
+    toc-depth: 2
+---
+
+## Problem
+
+The 2019/20 “Black Summer” bushfires were historically severe. How much did anthropogenic climate change increase the likelihood of the risk factors that drove that season—extreme heat, drought, and fire weather? And what does that imply for future seasons?
+
+*(This post adapts results from van Oldenborgh et al., 2021 and supporting sources.)*
+
+## Analysis
+
+### Data & sources
+
+- Attribution study: van Oldenborgh et al. (2021), *NHESS* — observational records, reanalyses, and multiple model ensembles to estimate probability ratios (PR) for extremes under today’s vs pre-industrial climate [@oldenborgh2021].  
+- Context: IPCC AR6 WGI (2021) [@ipcc2021] and CSIRO/BOM State of the Climate (2020) [@csiro2020].
+
+### Findings (heat, drought, fire weather)
+
+- Extreme heat: events like Dec-2019 are ≥2× as likely due to warming; long records suggest up to ~10× increase.  
+- Drought: attribution inconclusive for 2019—the IOD and SAM dominated that year’s rainfall deficits.  
+- Fire weather (FWI / MSR): extremes are roughly 4–9× more likely now than in early 20th century; models tend to underestimate the observed increase.
+
+To visualize these reported ranges, we encode a simple dataset (min/central/max PR) and draw a range plot. The figure is a communication aid (not a new estimate).
+
+
+
+```{r}
+#| label: fig-pr-ranges
+#| fig-cap: "Reported ranges of probability ratios (PR) that climate change increased the likelihood of risk factors during the Black Summer. Bars show min–max; point marks a central communication value. Adapted from @oldenborgh2021, with context from @ipcc2021 and @csiro2020."
+
+library(ggplot2)
+df <- data.frame(
+  factor = c("Extreme heat", "Fire weather (FWI/MSR)", "Drought"),
+  pr_min = c(2, 4, 0.8),     # drought 'around 1' ~ inconclusive; show ~0.8–1.2 band
+  pr_cen = c(5, 6.5, 1.0),   # simple central communication values
+  pr_max = c(10, 9, 1.2)
+)
+
+ggplot(df, aes(x = pr_cen, y = factor)) +
+  geom_linerange(aes(xmin = pr_min, xmax = pr_max), linewidth = 2, alpha = 0.6) +
+  geom_point(size = 3) +
+  geom_vline(xintercept = 1, linetype = "dashed") +
+  labs(x = "Probability ratio (today vs pre-industrial)", y = NULL) +
+  theme_minimal(base_size = 13)
+```
+As @fig-pr-ranges shows, heat and fire weather push well above PR = 1 (more likely now), while drought hovers near ~1 (no robust detection for 2019).
+
+### Models used in the attribution study
+The original study uses several large ensembles across CMIP generations and attribution projects. @tbl-ensembles lists a small subset to show the **diversity of models**
+
+```{r}
+#| label: tbl-ensembles
+#| tbl-cap: "Subset of climate model ensembles referenced in van Oldenborgh et al. (2021), illustrating diversity across projects and ensemble sizes."
+library(dplyr)
+library(tibble)
+
+ensembles <- tribble(
+  ~Model,           ~Project,      ~Resolution, ~Members, ~Period,
+  "CanESM2",        "CMIP5",       "2.8°",      50,       "1950–2099",
+  "CESM1-CAM5",     "CMIP5",       "1.0°",      40,       "1920–2100",
+  "EC-Earth",       "CMIP5",       "1.1°",      16,       "1860–2100",
+  "HadGEM3-A",      "Attribution", "0.6°",      15,       "1960–2015",
+  "IPSL-CM6A-LR",   "CMIP6",       "2.5×1.5°",  32,       "1950–2019",
+  "MPI-ESM",        "CMIP5",       "1.9°",      100,      "1850–2099",
+  "weather@home",   "Attribution", "≈1.8°",     1520,     "1987–2017"
+)
+
+ensembles
+```
+**Why it matters**. A multi-model approach reduces dependence on any single model. Notably, @oldenborgh2021 report that models likely understate the observed rise in fire weather, so real-world risk may be higher than central model estimates.
+
+## Conclusion
+
+Climate change materially increased the likelihood of the heat and fire-weather extremes that drove Black Summer, while drought attribution for 2019 remained inconclusive due to strong natural modes (IOD/SAM). This aligns with @oldenborgh2021 and the broader assessments in @ipcc2021 and @csiro2020.
+
+So we expect more frequent severe fire seasons under further warming; treat modelled fire-weather increases as possibly conservative (models understate observed trends). Priorities: infrastructure hardening, emergency capacity, land-use planning—and mitigation to limit future risk.
+
+## References
+
+van Oldenborgh, G. J., Krikken, F., Lewis, S., Leach, N. J., Lehner, F., Saunders, K. R., … Otto, F. E. L. (2021).
+**Attribution of the Australian bushfire risk to anthropogenic climate change.**
+*Natural Hazards and Earth System Sciences, 21*(3), 941–960. https://doi.org/10.5194/nhess-21-941-2021
+
+IPCC. (2021).
+**Climate Change 2021: The Physical Science Basis.**
+Cambridge University Press. https://doi.org/10.1017/9781009157896
+
+CSIRO & Australian Bureau of Meteorology. (2020).
+**State of the Climate 2020.**
+https://www.csiro.au/en/research/environmental-impacts/climate-change/state-of-the-climate
+
