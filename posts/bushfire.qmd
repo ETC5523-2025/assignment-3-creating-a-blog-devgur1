@@ -5,7 +5,6 @@ date: 2025-10-08
 categories: [Climate, Risk, Australia]
 image: profile.jpg
 execute:
-  image: ../profile.jpg
   warning: false
   message: false
 format:
