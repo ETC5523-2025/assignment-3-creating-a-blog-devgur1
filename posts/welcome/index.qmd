@@ -1,0 +1,9 @@
+---
+title: "Welcome To My Blog Template"
+author: "Dev Karan Gur"
+date: "2025-10-08"
+categories: [news]
+draft: true
+---
+
+This is the first post in a Quarto blog. Welcome!
