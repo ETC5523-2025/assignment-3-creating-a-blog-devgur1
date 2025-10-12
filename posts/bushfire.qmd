@@ -38,23 +38,37 @@ To visualize these reported ranges, we encode a simple dataset (min/central/max 
 
 
 ```{r}
-#| label: fig-pr-ranges
-#| fig-cap: "Reported ranges of probability ratios (PR) that climate change increased the likelihood of risk factors during the Black Summer. Bars show min–max; point marks a central communication value. Adapted from @oldenborgh2021, with context from @ipcc2021 and @csiro2020."
-
+#| label: fig-pr-interval
+#| fig-cap: "Probability ratios (PR) for Black Summer drivers with uncertainty. The light band marks 'no clear change' around PR≈1; values to the right indicate higher likelihood in today's climate."
+#| fig-alt: "Horizontal interval plot for Drought, Extreme heat, Fire weather showing min–max ranges, dots for central values, and a shaded band around PR=1."
+#| echo: false
+#| message: false
+#| warning: false
 library(ggplot2)
-df <- data.frame(
-  factor = c("Extreme heat", "Fire weather (FWI/MSR)", "Drought"),
-  pr_min = c(2, 4, 0.8),     # drought 'around 1' ~ inconclusive; show ~0.8–1.2 band
-  pr_cen = c(5, 6.5, 1.0),   # simple central communication values
-  pr_max = c(10, 9, 1.2)
-)
+library(dplyr)
+df <- tibble::tibble(
+  factor = c("Extreme heat","Fire weather (FWI/MSR)","Drought"),
+  pr_min = c(2,4,0.8),
+  pr_cen = c(5,6.5,1.0),
+  pr_max = c(10,9,1.2)
+) |> mutate(factor = factor(factor, levels = rev(c("Drought","Extreme heat","Fire weather (FWI/MSR)"))))
 
-ggplot(df, aes(x = pr_cen, y = factor)) +
+ggplot(df, aes(y = factor)) +
+  # 'no change' band around PR = 1
+  annotate("rect", xmin = 0.9, xmax = 1.1, ymin = -Inf, ymax = Inf, alpha = 0.08) +
+  # min–max interval
   geom_linerange(aes(xmin = pr_min, xmax = pr_max), linewidth = 2, alpha = 0.6) +
-  geom_point(size = 3) +
+  # central dot
+  geom_point(aes(x = pr_cen), size = 3) +
+  # reference line at 1
   geom_vline(xintercept = 1, linetype = "dashed") +
-  labs(x = "Probability ratio (today vs pre-industrial)", y = NULL) +
-  theme_minimal(base_size = 13)
+  # value labels at the dot
+  geom_text(aes(x = pr_cen, label = sprintf("×%.1f", pr_cen)), hjust = -0.2, size = 3.6) +
+  scale_x_continuous("Probability ratio (today vs pre-industrial)", limits = c(0.5, 10.5), breaks = c(0.5,1,2,4,6,8,10)) +
+  labs(y = NULL) +
+  theme_minimal(base_size = 13) +
+  theme(panel.grid.minor = element_blank())
+
 ```
 As @fig-pr-ranges shows, heat and fire weather push well above PR = 1 (more likely now), while drought hovers near ~1 (no robust detection for 2019).
 
