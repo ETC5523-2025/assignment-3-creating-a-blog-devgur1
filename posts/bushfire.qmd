@@ -18,7 +18,8 @@ format:
 
 The 2019/20 “Black Summer” bushfires were historically severe. How much did anthropogenic climate change increase the likelihood of the risk factors that drove that season—extreme heat, drought, and fire weather? And what does that imply for future seasons?
 
-*(This post adapts results from van Oldenborgh et al., 2021 and supporting sources.)*
+**Note**  - This post adapts results from van Oldenborgh et al. (2021) and supporting sources.
+
 
 ## Analysis
 
@@ -70,10 +71,10 @@ ggplot(df, aes(y = factor)) +
   theme(panel.grid.minor = element_blank())
 
 ```
-As @fig-pr-ranges shows, heat and fire weather push well above PR = 1 (more likely now), while drought hovers near ~1 (no robust detection for 2019).
+**Figure @fig-pr-ranges** shows, heat and fire weather push well above PR = 1 (more likely now), while drought hovers near ~1 (no robust detection for 2019).
 
 ### Models used in the attribution study
-The original study uses several large ensembles across CMIP generations and attribution projects. @tbl-ensembles lists a small subset to show the **diversity of models**
+The original study uses several large ensembles across CMIP generations and attribution projects. **Table @tbl-ensembles** lists a small subset to show the **diversity of models**
 
 ```{r}
 #| label: tbl-ensembles
@@ -116,6 +117,8 @@ ensembles |>
 Climate change materially increased the likelihood of the heat and fire-weather extremes that drove Black Summer, while drought attribution for 2019 remained inconclusive due to strong natural modes (IOD/SAM). This aligns with @oldenborgh2021 and the broader assessments in @ipcc2021 and @csiro2020.
 
 So we expect more frequent severe fire seasons under further warming; treat modelled fire-weather increases as possibly conservative (models understate observed trends). Priorities: infrastructure hardening, emergency capacity, land-use planning—and mitigation to limit future risk.
+
+For planners and emergency services, treat modelled fire-weather increases as conservative, and prioritise infrastructure hardening, response capacity, land-use planning, and emissions mitigation.
 
 ## References
 

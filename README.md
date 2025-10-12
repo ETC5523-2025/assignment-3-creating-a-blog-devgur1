@@ -1,4 +1,4 @@
-
+    
 # ETC5523 Blog Assessment
 
 * This is a **template** for the ETC5523 Blog Assessment. 
