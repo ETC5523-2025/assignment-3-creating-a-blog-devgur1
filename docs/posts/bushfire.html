@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dev Karan Gur">
-<meta name="dcterms.date" content="2025-10-08">
+<meta name="dcterms.date" content="2025-10-10">
 
 <title>How Much Did Climate Change Raise Australia’s 2019/20 Bushfire Risk? – From Data to Decisions | Dev Karan Gur</title>
 <style>
@@ -168,7 +168,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">October 8, 2025</p>
+        <p class="date">October 10, 2025</p>
       </div>
     </div>
     
@@ -224,6 +224,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>To visualize these reported ranges, we encode a simple dataset (min/central/max PR) and draw a range plot. The figure is a communication aid (not a new estimate).</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">factor =</span> <span class="fu">c</span>(<span class="st">"Extreme heat"</span>, <span class="st">"Fire weather (FWI/MSR)"</span>, <span class="st">"Drought"</span>),</span>
@@ -238,6 +240,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Probability ratio (today vs pre-industrial)"</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-pr-ranges" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -256,12 +259,8 @@ Figure&nbsp;1: Reported ranges of probability ratios (PR) that climate change in
 <section id="models-used-in-the-attribution-study" class="level3">
 <h3 class="anchored" data-anchor-id="models-used-in-the-attribution-study">Models used in the attribution study</h3>
 <p>The original study uses several large ensembles across CMIP generations and attribution projects. <a href="#tbl-ensembles" class="quarto-xref">Table&nbsp;1</a> lists a small subset to show the <strong>diversity of models</strong></p>
-<div id="tbl-ensembles" class="cell quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ensembles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: Subset of climate model ensembles referenced in van Oldenborgh et al.&nbsp;(2021), illustrating diversity across projects and ensemble sizes.
-</figcaption>
-<div aria-describedby="tbl-ensembles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -277,6 +276,13 @@ Table&nbsp;1: Subset of climate model ensembles referenced in van Oldenborgh et 
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>ensembles</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="tbl-ensembles" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ensembles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Subset of climate model ensembles referenced in van Oldenborgh et al.&nbsp;(2021), illustrating diversity across projects and ensemble sizes.
+</figcaption>
+<div aria-describedby="tbl-ensembles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 5
   Model        Project     Resolution Members Period   
