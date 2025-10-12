@@ -1,5 +1,5 @@
 ---
-title: "From Data to Decisions | Dev Karan Gur"
+title: ""
 listing:
   contents: posts
   sort: "date desc"
