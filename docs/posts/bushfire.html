@@ -22,41 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -224,79 +189,550 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>To visualize these reported ranges, we encode a simple dataset (min/central/max PR) and draw a range plot. The figure is a communication aid (not a new estimate).</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">factor =</span> <span class="fu">c</span>(<span class="st">"Extreme heat"</span>, <span class="st">"Fire weather (FWI/MSR)"</span>, <span class="st">"Drought"</span>),</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pr_min =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="fl">0.8</span>),     <span class="co"># drought 'around 1' ~ inconclusive; show ~0.8–1.2 band</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">pr_cen =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="fl">6.5</span>, <span class="fl">1.0</span>),   <span class="co"># simple central communication values</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">pr_max =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">9</span>, <span class="fl">1.2</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> pr_cen, <span class="at">y =</span> factor)) <span class="sc">+</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> pr_min, <span class="at">xmax =</span> pr_max), <span class="at">linewidth =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Probability ratio (today vs pre-industrial)"</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output-display">
-<div id="fig-pr-ranges" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-pr-interval" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Horizontal interval plot for Drought, Extreme heat, Fire weather showing min–max ranges, dots for central values, and a shaded band around PR=1.">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-pr-ranges-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="bushfire_files/figure-html/fig-pr-ranges-1.png" class="img-fluid figure-img" width="672">
+<div aria-describedby="fig-pr-interval-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="bushfire_files/figure-html/fig-pr-interval-1.png" class="img-fluid figure-img" alt="Horizontal interval plot for Drought, Extreme heat, Fire weather showing min–max ranges, dots for central values, and a shaded band around PR=1." width="672">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pr-ranges-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Reported ranges of probability ratios (PR) that climate change increased the likelihood of risk factors during the Black Summer. Bars show min–max; point marks a central communication value. Adapted from <span class="citation" data-cites="oldenborgh2021">@oldenborgh2021</span>, with context from <span class="citation" data-cites="ipcc2021">@ipcc2021</span> and <span class="citation" data-cites="csiro2020">@csiro2020</span>.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pr-interval-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Probability ratios (PR) for Black Summer drivers with uncertainty. The light band marks ‘no clear change’ around PR≈1; values to the right indicate higher likelihood in today’s climate.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>As <a href="#fig-pr-ranges" class="quarto-xref">Figure&nbsp;1</a> shows, heat and fire weather push well above PR = 1 (more likely now), while drought hovers near ~1 (no robust detection for 2019).</p>
+<p>As <strong>?@fig-pr-ranges</strong> shows, heat and fire weather push well above PR = 1 (more likely now), while drought hovers near ~1 (no robust detection for 2019).</p>
 </section>
 <section id="models-used-in-the-attribution-study" class="level3">
 <h3 class="anchored" data-anchor-id="models-used-in-the-attribution-study">Models used in the attribution study</h3>
 <p>The original study uses several large ensembles across CMIP generations and attribution projects. <a href="#tbl-ensembles" class="quarto-xref">Table&nbsp;1</a> lists a small subset to show the <strong>diversity of models</strong></p>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>ensembles <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>Model,           <span class="sc">~</span>Project,      <span class="sc">~</span>Resolution, <span class="sc">~</span>Members, <span class="sc">~</span>Period,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CanESM2"</span>,        <span class="st">"CMIP5"</span>,       <span class="st">"2.8°"</span>,      <span class="dv">50</span>,       <span class="st">"1950–2099"</span>,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CESM1-CAM5"</span>,     <span class="st">"CMIP5"</span>,       <span class="st">"1.0°"</span>,      <span class="dv">40</span>,       <span class="st">"1920–2100"</span>,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"EC-Earth"</span>,       <span class="st">"CMIP5"</span>,       <span class="st">"1.1°"</span>,      <span class="dv">16</span>,       <span class="st">"1860–2100"</span>,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"HadGEM3-A"</span>,      <span class="st">"Attribution"</span>, <span class="st">"0.6°"</span>,      <span class="dv">15</span>,       <span class="st">"1960–2015"</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"IPSL-CM6A-LR"</span>,   <span class="st">"CMIP6"</span>,       <span class="st">"2.5×1.5°"</span>,  <span class="dv">32</span>,       <span class="st">"1950–2019"</span>,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"MPI-ESM"</span>,        <span class="st">"CMIP5"</span>,       <span class="st">"1.9°"</span>,      <span class="dv">100</span>,      <span class="st">"1850–2099"</span>,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"weather@home"</span>,   <span class="st">"Attribution"</span>, <span class="st">"≈1.8°"</span>,     <span class="dv">1520</span>,     <span class="st">"1987–2017"</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>ensembles</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="cell">
 <div id="tbl-ensembles" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ensembles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;1: Subset of climate model ensembles referenced in van Oldenborgh et al.&nbsp;(2021), illustrating diversity across projects and ensemble sizes.
 </figcaption>
 <div aria-describedby="tbl-ensembles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 7 × 5
-  Model        Project     Resolution Members Period   
-  &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;    
-1 CanESM2      CMIP5       2.8°            50 1950–2099
-2 CESM1-CAM5   CMIP5       1.0°            40 1920–2100
-3 EC-Earth     CMIP5       1.1°            16 1860–2100
-4 HadGEM3-A    Attribution 0.6°            15 1960–2015
-5 IPSL-CM6A-LR CMIP6       2.5×1.5°        32 1950–2019
-6 MPI-ESM      CMIP5       1.9°           100 1850–2099
-7 weather@home Attribution ≈1.8°         1520 1987–2017</code></pre>
+<div class="cell-output-display">
+<div id="jcbwsrijfx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jcbwsrijfx table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#jcbwsrijfx thead, #jcbwsrijfx tbody, #jcbwsrijfx tfoot, #jcbwsrijfx tr, #jcbwsrijfx td, #jcbwsrijfx th {
+  border-style: none;
+}
+
+#jcbwsrijfx p {
+  margin: 0;
+  padding: 0;
+}
+
+#jcbwsrijfx .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#jcbwsrijfx .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#jcbwsrijfx .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#jcbwsrijfx .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#jcbwsrijfx .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jcbwsrijfx .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jcbwsrijfx .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jcbwsrijfx .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#jcbwsrijfx .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#jcbwsrijfx .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#jcbwsrijfx .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#jcbwsrijfx .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#jcbwsrijfx .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#jcbwsrijfx .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#jcbwsrijfx .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jcbwsrijfx .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#jcbwsrijfx .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#jcbwsrijfx .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#jcbwsrijfx .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jcbwsrijfx .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#jcbwsrijfx .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#jcbwsrijfx .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#jcbwsrijfx .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jcbwsrijfx .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#jcbwsrijfx .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#jcbwsrijfx .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jcbwsrijfx .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jcbwsrijfx .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#jcbwsrijfx .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jcbwsrijfx .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#jcbwsrijfx .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jcbwsrijfx .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jcbwsrijfx .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jcbwsrijfx .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jcbwsrijfx .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jcbwsrijfx .gt_left {
+  text-align: left;
+}
+
+#jcbwsrijfx .gt_center {
+  text-align: center;
+}
+
+#jcbwsrijfx .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#jcbwsrijfx .gt_font_normal {
+  font-weight: normal;
+}
+
+#jcbwsrijfx .gt_font_bold {
+  font-weight: bold;
+}
+
+#jcbwsrijfx .gt_font_italic {
+  font-style: italic;
+}
+
+#jcbwsrijfx .gt_super {
+  font-size: 65%;
+}
+
+#jcbwsrijfx .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#jcbwsrijfx .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#jcbwsrijfx .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#jcbwsrijfx .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#jcbwsrijfx .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#jcbwsrijfx .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#jcbwsrijfx .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#jcbwsrijfx .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#jcbwsrijfx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="Model" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Model</th>
+<th id="Project" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Project</th>
+<th id="Resolution" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Resolution</th>
+<th id="Members" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Members</th>
+<th id="Period" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Period</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Model">CanESM2</td>
+<td class="gt_row gt_left" headers="Project">CMIP5</td>
+<td class="gt_row gt_left" headers="Resolution">2.8°</td>
+<td class="gt_row gt_right" headers="Members">50</td>
+<td class="gt_row gt_left" headers="Period">1950–2099</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Model">CESM1-CAM5</td>
+<td class="gt_row gt_left" headers="Project">CMIP5</td>
+<td class="gt_row gt_left" headers="Resolution">1.0°</td>
+<td class="gt_row gt_right" headers="Members">40</td>
+<td class="gt_row gt_left" headers="Period">1920–2100</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Model">EC-Earth</td>
+<td class="gt_row gt_left" headers="Project">CMIP5</td>
+<td class="gt_row gt_left" headers="Resolution">1.1°</td>
+<td class="gt_row gt_right" headers="Members">16</td>
+<td class="gt_row gt_left" headers="Period">1860–2100</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Model">HadGEM3-A</td>
+<td class="gt_row gt_left" headers="Project">Attribution</td>
+<td class="gt_row gt_left" headers="Resolution">0.6°</td>
+<td class="gt_row gt_right" headers="Members">15</td>
+<td class="gt_row gt_left" headers="Period">1960–2015</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Model">IPSL-CM6A-LR</td>
+<td class="gt_row gt_left" headers="Project">CMIP6</td>
+<td class="gt_row gt_left" headers="Resolution">2.5×1.5°</td>
+<td class="gt_row gt_right" headers="Members">32</td>
+<td class="gt_row gt_left" headers="Period">1950–2019</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Model">MPI-ESM</td>
+<td class="gt_row gt_left" headers="Project">CMIP5</td>
+<td class="gt_row gt_left" headers="Resolution">1.9°</td>
+<td class="gt_row gt_right" headers="Members">100</td>
+<td class="gt_row gt_left" headers="Period">1850–2099</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Model">weather@home</td>
+<td class="gt_row gt_left" headers="Project">Attribution</td>
+<td class="gt_row gt_left" headers="Resolution">≈1.8°</td>
+<td class="gt_row gt_right" headers="Members">1,520</td>
+<td class="gt_row gt_left" headers="Period">1987–2017</td>
+</tr>
+</tbody>
+</table>
+
+</div>
 </div>
 </div>
 </figure>
+</div>
 </div>
 <p><strong>Why it matters</strong>. A multi-model approach reduces dependence on any single model. Notably, <span class="citation" data-cites="oldenborgh2021">@oldenborgh2021</span> report that models likely understate the observed rise in fire weather, so real-world risk may be higher than central model estimates.</p>
 </section>
