@@ -64,8 +64,13 @@ The original study uses several large ensembles across CMIP generations and attr
 ```{r}
 #| label: tbl-ensembles
 #| tbl-cap: "Subset of climate model ensembles referenced in van Oldenborgh et al. (2021), illustrating diversity across projects and ensemble sizes."
+#| echo: false
+#| message: false
+#| warning: false
+
 library(dplyr)
 library(tibble)
+library(gt)
 
 ensembles <- tribble(
   ~Model,           ~Project,      ~Resolution, ~Members, ~Period,
@@ -78,7 +83,17 @@ ensembles <- tribble(
   "weather@home",   "Attribution", "≈1.8°",     1520,     "1987–2017"
 )
 
-ensembles
+ensembles |>
+  gt() |>
+  fmt_number(Members, decimals = 0) |>
+  cols_width(
+    Model ~ px(160),
+    Project ~ px(120),
+    Resolution ~ px(120),
+    Members ~ px(110),
+    Period ~ px(160)
+  ) |>
+  tab_options(table.font.size = px(14))
 ```
 **Why it matters**. A multi-model approach reduces dependence on any single model. Notably, @oldenborgh2021 report that models likely understate the observed rise in fire weather, so real-world risk may be higher than central model estimates.
 
