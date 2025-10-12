@@ -3,7 +3,7 @@ title: "How Much Did Climate Change Raise Australia’s 2019/20 Bushfire Risk?"
 author: "Dev Karan Gur"
 date: 2025-10-10
 categories: [climate, risk, australia]
-image: ../profile.jpg
+image: ../bushfire.jpg
 execute:
   warning: false
   message: false
