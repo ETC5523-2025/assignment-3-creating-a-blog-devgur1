@@ -71,10 +71,10 @@ ggplot(df, aes(y = factor)) +
   theme(panel.grid.minor = element_blank())
 
 ```
-**Figure @fig-pr-ranges** shows, heat and fire weather push well above PR = 1 (more likely now), while drought hovers near ~1 (no robust detection for 2019).
+As @fig-pr-interval shows, heat and fire weather push well above PR = 1 (more likely now), while drought hovers near ~1 (no robust detection for 2019).
 
 ### Models used in the attribution study
-The original study uses several large ensembles across CMIP generations and attribution projects. **Table @tbl-ensembles** lists a small subset to show the **diversity of models**
+The original study uses several large ensembles across CMIP generations and attribution projects. @tbl-ensembles lists a small subset to show the **diversity of models**
 
 ```{r}
 #| label: tbl-ensembles
